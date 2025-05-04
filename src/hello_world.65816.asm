@@ -95,7 +95,6 @@ FG_COLOR    .equ 150
 //-----------------------------------------------------------------------------
 
 start       sei                                 ; disable IRQ
-
             nat_mode()                          ; switch to native mode
             
             a8()
@@ -116,9 +115,6 @@ start       sei                                 ; disable IRQ
     
             a8()
             sav(%00000001, CGIA_PLANES)         ; activate plane0
-
-            //sav($21, LMS)
-            sav(FG_COLOR, LFS);
 
             jmp *
 
