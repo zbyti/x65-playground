@@ -7,7 +7,7 @@
             .target "65816"
             .format "xex"
             .encoding "screencodeatari", "mixed"
-            
+
             .setting "LaunchCommand", "x65 {0}"
 
 //=============================================================================
@@ -26,7 +26,7 @@ PLANE_MASK_DOUBLE_WIDTH       .equ 0b00010000
 CGIA_RASTER                   .equ $FF10
 CGIA_PLANES                   .equ $FF30 ; [TTTTEEEE] EEEE - enable bits, TTTT - type (0 bckgnd, 1 sprite)
 CGIA_BACK_COLOR               .equ $FF31
-CGIA_OFFSET0                  .equ $FF38 ; 2 bytes 
+CGIA_OFFSET0                  .equ $FF38 ; 2 bytes
 CGIA_OFFSET1                  .equ $FF3A ; 2 bytes
 CGIA_OFFSET2                  .equ $FF3C ; 2 bytes
 CGIA_OFFSET3                  .equ $FF3E ; 2 bytes
@@ -43,11 +43,11 @@ CGIA_PLANE0_SHARED_COLOR2     .equ $FF49 ; R09
 
 //-----------------------------------------------------------------------------
 
-LMS         .equ $4000     ; Adres pamięci danych znaków dla pierwszego wiersza tekstu
-LFS         .equ $5000     ; Adres pamięci danych kolorów znaków dla pierwszego wiersza tekstu
-LBS         .equ $6000     ; Adres pamięci danych kolorów tła dla pierwszego wiersza tekstu
-LCG         .equ $a000     ; Adres pamięci generatora znaków (fontu 8x8), plik z fontmi musi mieć nagłówek
-DL          .equ $b000     ; Adres pamięci listy wyświetlania
+LMS         .equ $4000     ; Memory address for character data (first text row)
+LFS         .equ $5000     ; Memory address for character color data (first text row)
+LBS         .equ $6000     ; Memory address for background color data (first text row)
+LCG         .equ $a000     ; Character generator memory address (8x8 font, font file must include a header)
+DL          .equ $b000     ; Display List memory address
 
 BG_COLOR    .equ 145
 FG_COLOR    .equ 150
@@ -84,7 +84,7 @@ FG_COLOR    .equ 150
             .segment "TEXT_COLOR"
             .org LFS
             .storage 20, FG_COLOR
-                                  
+
 //=============================================================================
 // MAIN segment of code
 //=============================================================================
@@ -96,23 +96,23 @@ FG_COLOR    .equ 150
 
 start       sei                                 ; disable IRQ
             nat_mode()                          ; switch to native mode
-            
+
             a8()
             sav(0, CGIA_PLANES)                 ; disable all planes, so CGIA does not go haywire during reconfiguration
             sav(0, CGIA_PLANE0_FLAGS)
             sav(0, CGIA_PLANE0_BORDER_COLUMNS)
             sav(7, CGIA_PLANE0_ROW_HEIGHT)      ; 8 rows per character
-            sav(0, CGIA_PLANE0_STRIDE)       
+            sav(0, CGIA_PLANE0_STRIDE)
             sav(0, CGIA_PLANE0_SCROLL_X)
             sav(0, CGIA_PLANE0_OFFSET_X)
             sav(0, CGIA_PLANE0_SCROLL_Y)
             sav(0, CGIA_PLANE0_OFFSET_Y)
             sav(0, CGIA_PLANE0_SHARED_COLOR1)
-            sav(0, CGIA_PLANE0_SHARED_COLOR2)            
+            sav(0, CGIA_PLANE0_SHARED_COLOR2)
 
             a16()
             sav(DL, CGIA_OFFSET0)               ; point plane0 to DL
-    
+
             a8()
             sav(%00000001, CGIA_PLANES)         ; activate plane0
 
@@ -124,16 +124,16 @@ start       sei                                 ; disable IRQ
 
         .macro emu_mode()
             sec
-            xce             ; switch to emulation mode        
+            xce             ; switch to emulation mode
         .endmacro
 
 //-----------------------------------------------------------------------------
 
         .macro nat_mode()
             clc
-            xce             ; switch to native mode        
+            xce             ; switch to native mode
         .endmacro
-        
+
 //-----------------------------------------------------------------------------
 
         .macro a8()
@@ -145,8 +145,8 @@ start       sei                                 ; disable IRQ
         .macro a16()
             rep #%00100000  ; 16-bit accumulator
         .endmacro
-        
-//-----------------------------------------------------------------------------        
+
+//-----------------------------------------------------------------------------
 
         .macro i8()
             sep #%00010000  ; 8-bit index
