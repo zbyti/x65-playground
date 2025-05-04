@@ -19,9 +19,9 @@
     4   - double-width pixel
     5-7 - [RESERVED]
 */
-PLANE_MASK_TRANSPARENT        .equ 0b00000001
-PLANE_MASK_BORDER_TRANSPARENT .equ 0b00001000
-PLANE_MASK_DOUBLE_WIDTH       .equ 0b00010000
+PLANE_MASK_TRANSPARENT        .equ %00000001
+PLANE_MASK_BORDER_TRANSPARENT .equ %00001000
+PLANE_MASK_DOUBLE_WIDTH       .equ %00010000
 
 CGIA_RASTER                   .equ $FF10
 CGIA_PLANES                   .equ $FF30 ; [TTTTEEEE] EEEE - enable bits, TTTT - type (0 bckgnd, 1 sprite)
