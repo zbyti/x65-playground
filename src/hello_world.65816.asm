@@ -96,19 +96,19 @@ FG_COLOR    .equ 150
 
 start       sei                                 ; disable IRQ
             nat_mode()                          ; switch to native mode
-
             a8()
-            sav(0, CGIA_PLANES)                 ; disable all planes, so CGIA does not go haywire during reconfiguration
-            sav(0, CGIA_PLANE0_FLAGS)
-            sav(0, CGIA_PLANE0_BORDER_COLUMNS)
+
+            stz CGIA_PLANES                     ; disable all planes, so CGIA does not go haywire during reconfiguration
+            stz CGIA_PLANE0_FLAGS
+            stz CGIA_PLANE0_BORDER_COLUMNS
             sav(7, CGIA_PLANE0_ROW_HEIGHT)      ; 8 rows per character
-            sav(0, CGIA_PLANE0_STRIDE)
-            sav(0, CGIA_PLANE0_SCROLL_X)
-            sav(0, CGIA_PLANE0_OFFSET_X)
-            sav(0, CGIA_PLANE0_SCROLL_Y)
-            sav(0, CGIA_PLANE0_OFFSET_Y)
-            sav(0, CGIA_PLANE0_SHARED_COLOR1)
-            sav(0, CGIA_PLANE0_SHARED_COLOR2)
+            stz CGIA_PLANE0_STRIDE
+            stz CGIA_PLANE0_SCROLL_X
+            stz CGIA_PLANE0_OFFSET_X
+            stz CGIA_PLANE0_SCROLL_Y
+            stz CGIA_PLANE0_OFFSET_Y
+            stz CGIA_PLANE0_SHARED_COLOR1
+            stz CGIA_PLANE0_SHARED_COLOR2
 
             a16()
             sav(DL, CGIA_OFFSET0)               ; point plane0 to DL
