@@ -283,6 +283,11 @@ begin
   crates := 0;
   isOddFrame := false;
 
+  tile_char[PLA_RIGHT] := PLA_RIGHT_T;
+  tile_char[PLA_LEFT]  := PLA_LEFT_T;
+  tile_char[PLA_UP]    := PLA_UP_T;
+  tile_char[PLA_DOWN]  := PLA_DOWN_T;
+
   pause;
   Move(pointer(TXT_INFO_1) + 1, pointer(LMS), TXT_INFO_1[0]);
   Move(pointer(TXT_INFO_2) + 1, pointer(LMS) + SCR_W * 2, TXT_INFO_2[0]);
