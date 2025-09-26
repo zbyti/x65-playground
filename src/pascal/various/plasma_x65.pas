@@ -85,6 +85,10 @@ begin
 
   CGIA_PLANES := 0; // disable all planes, so CGIA does not go haywire during reconfiguration
 
+  FillByte(pointer(LMS), $600, 0);
+  FillByte(pointer(LFS), $600, 0);
+  FillByte(pointer(LBS), $600, 0);
+
   Move(DATA_CHAR, charset, SizeOf(DATA_CHAR));
   FillByte(pointer(CGIA_PLANE0), 10, 0); // clear CGIA_PLANE0 registers
   CGIA_PLANE0_ROW_HEIGHT := 7;           // 8 rows per character
