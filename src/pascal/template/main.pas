@@ -72,7 +72,7 @@ begin
   //CGIA_PLANE0_SHARED_COLOR1 := COL_BLACK;
   //CGIA_PLANE0_SHARED_COLOR2 := COL_WIHTE;
 
-  FillByte(pointer(LMS), SCR_OFFSET, $20); // SPACE char code on C64
+  FillByte(pointer(LMS), SCR_OFFSET, $20); // SPACE char code
   FillByte(pointer(LFS), SCR_OFFSET, 0);   // foreground: black
   FillByte(pointer(LBS), SCR_OFFSET, 1);   // background: dark gray
 
@@ -88,8 +88,8 @@ begin
   Init;
 
   for tmp := 0 to 255 do begin
-    poke(LMS + tmp, tmp);
-    poke(LFS + tmp, tmp);
+    poke(LMS + tmp, tmp); // full charset
+    poke(LFS + tmp, tmp); // every color
   end;
 
   repeat
@@ -106,10 +106,10 @@ begin
       then
         makeMove(joy);
 
-        case joy of
-          JOY_RIGHT and JOY_SPACE : begin end;
-          JOY_LEFT  and JOY_SPACE : begin end;
-        end;
+      case joy of
+        JOY_RIGHT and JOY_SPACE : begin end;
+        JOY_LEFT  and JOY_SPACE : begin end;
+      end;
       }
 
     end;
