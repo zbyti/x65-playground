@@ -2,10 +2,6 @@ program Sokoban;
 
 //-----------------------------------------------------------------------------
 
-{$librarypath 'lib'}
-
-//-----------------------------------------------------------------------------
-
 {$i 'inc/const.inc'}
 {$i 'inc/levels.inc'}
 {$i 'inc/registers.inc'}
@@ -77,7 +73,6 @@ begin
   FillByte(pointer(CGIA_PLANE0), 10, 0);  // clear CGIA_PLANE0 registers
 
   CGIA_PLANE0_ROW_HEIGHT := 7;            // 8 rows per character
-  CGIA_PLANE0_FLAGS := PLANE_MASK_DOUBLE_WIDTH;
 
   CGIA_PLANE0_SHARED_COLOR1 := COL_BLACK;
   CGIA_PLANE0_SHARED_COLOR2 := COL_WIHTE;

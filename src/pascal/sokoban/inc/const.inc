@@ -17,17 +17,17 @@ MAX_Y   = SCR_H shr 1;
 
 {$i 'inc/scanners_addr.inc'}
 
-DL: array [0..41] of byte = (             // Display List memory address
+DL: array of byte = [                     // Display List memory address
   $f3,                                    // LMS + LFS + LBS + LCG
   lo(LMS),hi(LMS),                        // Memory address for character data (first text row)
   lo(LFS),hi(LFS),                        // Memory address for character color data (first text row)
   lo(LBS),hi(LBS),                        // Memory address for background color data (first text row)
   lo(LCG),hi(LCG),                        // Character generator memory address (8x8 font)
-  $c, $c, $c, $c, $c, $c, $c, $c, $c, $c, // MODE4
-  $c, $c, $c, $c, $c, $c, $c, $c, $c, $c, // MODE4
-  $c, $c, $c, $c, $c, $c, $c, $c, $c, $c, // MODE4
+  $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, // MODE2 + MULTICOLOR_BIT + DOUBLE_WIDTH_BIT
+  $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, // MODE2 + MULTICOLOR_BIT + DOUBLE_WIDTH_BIT
+  $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, $3a, // MODE2 + MULTICOLOR_BIT + DOUBLE_WIDTH_BIT
   $82,lo(word(@DL)),hi(word(@DL))         // JMP to begin of DL and wait for Vertical BLank
-);
+];
 
 //-------------------------------------
 
